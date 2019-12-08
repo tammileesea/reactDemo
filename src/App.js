@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-const StyledButton = styled.button`
-  background-color: ${props => props.alt ? 'red' : 'green'};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
+// const StyledButton = styled.button`
+//   background-color: ${props => props.alt ? 'red' : 'green'};
+//   color: white;
+//   font: inherit;
+//   border: 1px solid blue;
+//   padding: 8px;
+//   cursor: pointer;
 
-  &:hover {
-    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
-    color: black
-`
+//   &:hover {
+//     background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+//     color: black
+// `
 
 class App extends Component {
   state = {
@@ -68,20 +68,21 @@ class App extends Component {
   }
 
   render() {
-    const style = { //inline styles
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover':{
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
+    // const style = { //inline styles
+    //   backgroundColor: 'green',
+    //   color: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   ':hover':{
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
+    // };
 
     let persons = null;
+    let btnClass = [classes.Button];
 
     if (this.state.showPersons){ //outputing conditional content
       persons = (
@@ -109,25 +110,27 @@ class App extends Component {
       //   backgroundColor: 'salmon', 
       //   color: 'black'
       // }
+      btnClass.push(classes.Red);
     }
 
-    const classes = [];
+    const assignedClasses = [];
     if (this.state.persons.length <= 2) { //classes = [red]
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if (this.state.persons.length <= 1){ //classes = [red, bold]
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
     //use join in the className in order to convert an array to a string
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <StyledButton 
+        <p className={assignedClasses.join(' ')}>This is really working!</p>
+        <button
+          className={btnClass.join(' ')}
           alt={this.state.showPersons}
           onClick={() => this.togglePersonsHandler()}>Switch Name
-        </StyledButton>
+        </button>
         {/* better to use binding */}
         {persons}
       </div>
