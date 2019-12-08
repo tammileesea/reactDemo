@@ -82,7 +82,7 @@ class App extends Component {
     // };
 
     let persons = null;
-    let btnClass = [classes.Button];
+    let btnClass = '';
 
     if (this.state.showPersons){ //outputing conditional content
       persons = (
@@ -110,7 +110,7 @@ class App extends Component {
       //   backgroundColor: 'salmon', 
       //   color: 'black'
       // }
-      btnClass.push(classes.Red);
+      btnClass = classes.Red;
     }
 
     const assignedClasses = [];
@@ -127,7 +127,7 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p className={assignedClasses.join(' ')}>This is really working!</p>
         <button
-          className={btnClass.join(' ')}
+          className={btnClass}
           alt={this.state.showPersons}
           onClick={() => this.togglePersonsHandler()}>Switch Name
         </button>
