@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
+// import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/cockpit'
 // import styled from 'styled-components';
 
 // const StyledButton = styled.button`
@@ -82,56 +84,35 @@ class App extends Component {
     // };
 
     let persons = null;
-    let btnClass = '';
 
     if (this.state.showPersons){ //outputing conditional content
-      persons = (
-        <div >
-          {this.state.persons.map((person, index) => {
-            return <Person 
-              click={() => this.deletePersonHandler(index)}
-              name={person.name} 
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangeHandler(event, person.id)}/>
-            })}
-          {/* <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, 'Maxi!')} //can pass methods as props to change state of another component which doesn't have direct access to the state nor should it have direc access
-            changed={this.nameChangeHandler}
-          >
-            My Hobbies: Racing
+      persons = <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangeHandler}></Persons>;
+      
+        {/* <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, 'Maxi!')} //can pass methods as props to change state of another component which doesn't have direct access to the state nor should it have direc access
+          changed={this.nameChangeHandler}
+        >
+          My Hobbies: Racing
           </Person> */}
-        </div>
-      )
+
       // style.backgroundColor = 'red'; //dynamic styling
       // style[':hover'] = { //using Radium
       //   backgroundColor: 'salmon', 
       //   color: 'black'
       // }
-      btnClass = classes.Red;
     }
-
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) { //classes = [red]
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1){ //classes = [red, bold]
-      assignedClasses.push(classes.bold);
-    }
-    //use join in the className in order to convert an array to a string
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedClasses.join(' ')}>This is really working!</p>
-        <button
-          className={btnClass}
-          alt={this.state.showPersons}
-          onClick={() => this.togglePersonsHandler()}>Switch Name
-        </button>
-        {/* better to use binding */}
+        <Cockpit
+        persons={this.state.persons}
+        showPersons={this.state.showPersons}
+        togglePersonsHandler={this.togglePersonsHandler}></Cockpit>
         {persons}
       </div>
     );
