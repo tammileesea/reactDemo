@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './App.css';
 // import Person from '../components/Persons/Person/Person';
 import Persons from '../components/Persons/Persons';
-import Cockpit from '../components/Cockpit/cockpit'
+import Cockpit from '../components/Cockpit/cockpit';
 // import styled from 'styled-components';
 
 // const StyledButton = styled.button`
@@ -19,6 +19,11 @@ import Cockpit from '../components/Cockpit/cockpit'
 // `
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
   state = {
     persons: [
       { id: 1, name: 'Max', age: 28 },
@@ -28,6 +33,19 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentWillMount(){
+    console.log('[App.js] componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
 
   switchNameHandler = (newName) => {
     // console.log('Was clicked!');
@@ -43,7 +61,7 @@ class App extends Component {
 
   nameChangeHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
-      return p.id === id
+      return p.id === id;
     });
 
     const person = { //creating a COPY of the original, instead of mutating the original
@@ -70,6 +88,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
     // const style = { //inline styles
     //   backgroundColor: 'green',
     //   color: 'white',
@@ -86,25 +105,26 @@ class App extends Component {
     let persons = null;
 
     if (this.state.showPersons){ //outputing conditional content
-      persons = <Persons
-        persons={this.state.persons}
-        clicked={this.deletePersonHandler}
-        changed={this.nameChangeHandler}></Persons>;
+      persons = (
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangeHandler}/>
       
-        {/* <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Maxi!')} //can pass methods as props to change state of another component which doesn't have direct access to the state nor should it have direc access
-          changed={this.nameChangeHandler}
-        >
-          My Hobbies: Racing
-          </Person> */}
+      // <Person
+      //   name={this.state.persons[1].name}
+      //   age={this.state.persons[1].age}
+      //   click={this.switchNameHandler.bind(this, 'Maxi!')} //can pass methods as props to change state of another component which doesn't have direct access to the state nor should it have direc access
+      //   changed={this.nameChangeHandler}>
+      //   My Hobbies: Racing
+      //   </Person>
 
       // style.backgroundColor = 'red'; //dynamic styling
       // style[':hover'] = { //using Radium
       //   backgroundColor: 'salmon', 
       //   color: 'black'
       // }
+      );
     }
 
     return (

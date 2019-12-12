@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import classes from './Person.css';
 
 // const StyledDiv = styled.div` 
@@ -16,6 +16,7 @@ import classes from './Person.css';
 // `; //returning a component, allowing use of a tag; storing the method call in style
 
 const person = ( props ) => {
+    console.log('[Person.js] rendering...')
     return (
         // <div className="Person" style={style}>
         <div className={classes.Person}>
